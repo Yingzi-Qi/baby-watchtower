@@ -23,7 +23,7 @@ if(ready){
 }
 let gmailTestError=false;
 if(process.env.GMAIL_USER&&process.env.GMAIL_APP_PASSWORD&&process.env.ALERT_EMAIL_TO&&!state.gmailConfirmed){
- try{await sendGmail({subject:"Baby Watchtower email alerts connected",text:"This is a setup confirmation from Baby Watchtower. Confirmed incidents and recoveries will be sent to this address. Checks currently depend on GitHub Actions scheduling and may be delayed.\nhttps://yingzi-qi.github.io/baby-watchtower/"});state.gmailConfirmed=true}catch{gmailTestError=true}
+ try{await sendGmail({subject:"Baby Watchtower email alerts connected",text:"This is a setup confirmation from Baby Watchtower. Confirmed incidents and recoveries will be sent to this address. Monitoring results and their timestamp are available on the dashboard.\nhttps://yingzi-qi.github.io/baby-watchtower/"});state.gmailConfirmed=true}catch{gmailTestError=true}
 }
 const email=await deliverEmail(state);
 email.testAccepted=!!state.gmailConfirmed;

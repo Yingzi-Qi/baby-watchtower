@@ -65,3 +65,45 @@ SMTP acceptance does not guarantee inbox delivery. Python 3 is required (availab
 on GitHub's Ubuntu runner). Delivery uses authenticated TLS on port 465. SMTP has
 no idempotency guarantee: an ambiguous timeout or failure to persist state can
 cause duplicate mail on retry. Failed deliveries retry on subsequent checks.
+
+## Hosted checker (prepared; requires deployment)
+
+`render.yaml` provisions one paid Starter Docker web service and a 1 GB persistent
+disk. Review current Render pricing before creating it. Free instances sleep and
+block SMTP; they are unsuitable for this checker. Keep exactly one instance with
+this disk-based state store. `Dockerfile` builds the interface and includes Node
+22 and Python 3 for Gmail delivery.
+
+The service checks every 60 seconds. A check already in progress is shared;
+public `POST /api/check` starts a check or returns the remaining global cooldown.
+`GET /api/dashboard` returns saved results and runner status. Requests only check
+the hardcoded monitored websites: users cannot supply target URLs or credentials.
+The UI polls while a manually requested check runs. `/healthz` fails when checks
+stop producing fresh results, allowing Render health checks to restart the service.
+This is recovery, not independent outage notification: configure an external
+uptime monitor for alerts if the whole host becomes unreachable.
+
+Deployment/cutover:
+
+1. Connect Render and approve the service/disk costs. Deploy the Blueprint with
+   `GMAIL_USER`, `GMAIL_APP_PASSWORD`, and `ALERT_EMAIL_TO` as private environment
+   variables. GitHub secrets cannot be read back for migration; re-enter the app
+   password securely in Render. Optional Telegram secrets use the existing names.
+2. Stop the GitHub monitoring workflow immediately before starting the hosted
+   checker to prevent duplicate alerts. On first boot only, `STATE_SEED_URL`
+   imports incident/delivery history from the monitor-state branch. A failed
+   import aborts startup instead of silently discarding history. Existing disk
+   state is never overwritten. Export the final GitHub state for rollback.
+3. Verify `/healthz`, initial results, public refresh, and scheduled checks. The
+   hosted service also serves the dashboard directly, with same-origin API calls.
+4. For the existing GitHub Pages URL, set `public/runtime-config.json` to
+   `{"backendUrl":"https://ACTUAL-HOST/api"}`, build, and publish `docs` with a
+   Pages-only deployment workflow (remove scheduled checks and state writes).
+   Until that cutover is verified, the published dashboard retains its existing
+   GitHub results mode; no fabricated backend URL is configured.
+5. If rollback is needed, export the latest hosted state before restoring GitHub
+   monitoring. Never run both schedulers with alert credentials at the same time.
+
+No provider guarantees zero downtime. The UI marks hosted results stale after
+three minutes. Long checks/alert delivery can extend the one-minute interval;
+only one observation is active at a time, with a three-minute process deadline.

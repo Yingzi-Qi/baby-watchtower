@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: baby-watchtower
+    runtime: docker
+    plan: starter
+    numInstances: 1
+    healthCheckPath: /healthz
+    autoDeployTrigger: off
+    disk:
+      name: monitor-history
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DATA_DIR
+        value: /data
+      - key: STATE_SEED_URL
+        value: https://raw.githubusercontent.com/Yingzi-Qi/baby-watchtower/monitor-state/state.json
+      - key: ALLOWED_ORIGIN
+        value: https://yingzi-qi.github.io
+      - key: GMAIL_USER
+        sync: false
+      - key: GMAIL_APP_PASSWORD
+        sync: false
+      - key: ALERT_EMAIL_TO
+        sync: false

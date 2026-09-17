@@ -1,6 +1,7 @@
 import {readFile,writeFile,mkdir,rename} from "node:fs/promises";
 import path from "node:path";
 import {runProbes} from "../lib/probes.mjs";
+import {deliverEmail} from "./email.mjs";
 import {advance} from "./state.mjs";
 const statePath=process.env.MONITOR_STATE_PATH??".monitor/state.json";
 const outputPath=process.env.MONITOR_OUTPUT_PATH??"public/data/dashboard.json";
@@ -19,6 +20,8 @@ if(ready){
  }catch{deliveryError=true;console.error("Telegram delivery failed; queued for the next run.");break}
  }
 }
+const email=await deliverEmail(state);
+if(email.deliveryError)console.error("Email delivery failed; queued for the next run.");
 await writeJson(statePath,state);
-await writeJson(outputPath,{snapshot:state.snapshot,incidents:state.incidents,history:state.history.slice(0,60),telegram:ready,pendingAlerts:ready?state.incidents.filter(i=>!i.open_sent||(i.resolved_at&&!i.recovery_sent)).length:0,deliveryError});
+await writeJson(outputPath,{snapshot:state.snapshot,incidents:state.incidents,history:state.history.slice(0,60),email,telegram:ready,pendingAlerts:ready?state.incidents.filter(i=>!i.open_sent||(i.resolved_at&&!i.recovery_sent)).length:0,deliveryError});
 console.log(JSON.stringify({checkedAt:state.snapshot.checkedAt,checks:state.snapshot.checks.length,issues:state.history[0].issues,openIncidents:state.incidents.filter(i=>!i.resolved_at).length,telegramConfigured:ready}));

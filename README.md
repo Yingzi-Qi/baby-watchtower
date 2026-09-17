@@ -22,3 +22,34 @@ Commit the source and rebuilt docs/ folder. The push workflow rebuilds it; sched
 
 ## Sharing
 Share the GitHub Pages URL. No login is required. Repository edit access is separate.
+
+## Email
+
+The recipient is stored as the private GitHub Actions secret `ALERT_EMAIL_TO`.
+To enable delivery, add `RESEND_API_KEY` (a sending key) and `ALERT_EMAIL_FROM`
+(an address on a verified Resend sending domain) in repository Settings → Secrets
+and variables → Actions. Do not put credentials or recipient addresses in source.
+Resend's default testing sender cannot email arbitrary recipients.
+Email has separate incident/recovery delivery tracking from Telegram and retries
+failed requests. Already resolved incidents are skipped when email is first enabled.
+API acceptance does not guarantee inbox delivery; use Resend delivery logs to check
+bounces. Idempotency keys reduce duplicates within Resend's retention window.
+
+## Telegram
+
+The recipient only needs Telegram on their own device. No GitHub access is needed.
+The repository owner creates a dedicated bot at https://t.me/BotFather with `/newbot`.
+On a computer with Python 3 and GitHub CLI authenticated as a repository administrator,
+run this from a downloaded or cloned copy of the repository:
+
+```sh
+python3 scripts/setup_telegram.py
+```
+
+Paste the bot token at the hidden prompt. Send the generated private pairing link
+to the intended recipient; they tap Start. The helper automatically finds their
+chat ID, stores both GitHub secrets, and sends a confirmation. The link expires
+when the helper exits (after 10 minutes); don't share it publicly. This sets one
+recipient and replaces any previously configured Telegram recipient. The helper
+uses getUpdates, so use a dedicated bot without another polling process or webhook.
+Monitoring then runs on GitHub without either person's device staying online.

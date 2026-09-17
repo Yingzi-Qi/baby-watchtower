@@ -21,3 +21,10 @@ test('activation skips historical resolved incidents and requires full configura
  assert.equal((await deliverEmail(state,{})).configured,false);assert.equal(state.emailActivated,undefined);
  await deliverEmail(state,env,()=>{throw Error('Must not send historical incident')});assert.equal(state.incidents[0].email.recovery,true);
 });
+test('Gmail sends independently and retries failed delivery',async()=>{
+ const state={incidents:[incident()]};const gmailEnv={GMAIL_USER:'sender@gmail.com',GMAIL_APP_PASSWORD:'test',ALERT_EMAIL_TO:'recipient@example.com'};let sent=0;
+ const unused=()=>{throw Error('Resend must not be used')};
+ let result=await deliverEmail(state,gmailEnv,unused,async()=>{throw Error('auth failed')});assert.equal(result.deliveryError,true);assert.equal(result.pending,1);
+ result=await deliverEmail(state,gmailEnv,unused,async payload=>{assert.match(payload.subject,/INCIDENT/);sent++});assert.equal(result.provider,'gmail');assert.equal(result.pending,0);
+ await deliverEmail(state,gmailEnv,unused,async()=>sent++);assert.equal(sent,1);
+});

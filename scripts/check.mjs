@@ -1,6 +1,7 @@
 import {readFile,writeFile,mkdir,rename} from "node:fs/promises";
 import path from "node:path";
 import {runProbes} from "../lib/probes.mjs";
+import {sendGmail} from "./gmail.mjs";
 import {deliverEmail} from "./email.mjs";
 import {advance} from "./state.mjs";
 const statePath=process.env.MONITOR_STATE_PATH??".monitor/state.json";
@@ -20,7 +21,13 @@ if(ready){
  }catch{deliveryError=true;console.error("Telegram delivery failed; queued for the next run.");break}
  }
 }
+let gmailTestError=false;
+if(process.env.GMAIL_USER&&process.env.GMAIL_APP_PASSWORD&&process.env.ALERT_EMAIL_TO&&!state.gmailConfirmed){
+ try{await sendGmail({subject:"Baby Watchtower email alerts connected",text:"This is a setup confirmation from Baby Watchtower. Confirmed incidents and recoveries will be sent to this address. Checks currently depend on GitHub Actions scheduling and may be delayed.\nhttps://yingzi-qi.github.io/baby-watchtower/"});state.gmailConfirmed=true}catch{gmailTestError=true}
+}
 const email=await deliverEmail(state);
+email.testAccepted=!!state.gmailConfirmed;
+email.deliveryError=email.deliveryError||gmailTestError;
 if(email.deliveryError)console.error("Email delivery failed; queued for the next run.");
 await writeJson(statePath,state);
 await writeJson(outputPath,{snapshot:state.snapshot,incidents:state.incidents,history:state.history.slice(0,60),email,telegram:ready,pendingAlerts:ready?state.incidents.filter(i=>!i.open_sent||(i.resolved_at&&!i.recovery_sent)).length:0,deliveryError});

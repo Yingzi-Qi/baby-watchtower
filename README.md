@@ -53,3 +53,15 @@ when the helper exits (after 10 minutes); don't share it publicly. This sets one
 recipient and replaces any previously configured Telegram recipient. The helper
 uses getUpdates, so use a dedicated bot without another polling process or webhook.
 Monitoring then runs on GitHub without either person's device staying online.
+
+### Gmail sender
+
+Alternatively, set `GMAIL_USER` to the sending Gmail address and
+`GMAIL_APP_PASSWORD` to a Google App Password in GitHub Actions secrets.
+Two-step verification must be enabled and App Passwords available for that account.
+Never use the normal account password. Gmail takes precedence over Resend when
+fully configured. The first configured monitoring run sends a confirmation email;
+SMTP acceptance does not guarantee inbox delivery. Python 3 is required (available
+on GitHub's Ubuntu runner). Delivery uses authenticated TLS on port 465. SMTP has
+no idempotency guarantee: an ambiguous timeout or failure to persist state can
+cause duplicate mail on retry. Failed deliveries retry on subsequent checks.

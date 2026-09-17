@@ -1,0 +1,5 @@
+import test from "node:test";import assert from "node:assert/strict";import {advance} from "./state.mjs";
+const snap=(n,status)=>({checkedAt:new Date(1700000000000+n*300000).toISOString(),checks:[{id:"lighter",site:"latency",name:"Lighter data",detail:"Evidence",status}],venues:[]});
+test("two failures open once; two passes recover",()=>{let s=advance(null,snap(0,"issue"));assert.equal(s.incidents.length,0);s=advance(s,snap(1,"issue"));assert.equal(s.incidents.length,1);s=advance(s,snap(2,"issue"));assert.equal(s.incidents.length,1);s=advance(s,snap(3,"ok"));assert.equal(s.incidents[0].resolved_at,null);s=advance(s,snap(4,"ok"));assert.equal(s.incidents[0].resolved_at,snap(4,"ok").checkedAt)});
+test("unknown breaks consecutive failures and never resolves",()=>{let s=advance(null,snap(0,"issue"));s=advance(s,snap(1,"unknown"));s=advance(s,snap(2,"issue"));assert.equal(s.incidents.length,0);s=advance(s,snap(3,"issue"));s=advance(s,snap(4,"unknown"));assert.equal(s.incidents[0].resolved_at,null)});
+test("older observations cannot overwrite newer state",()=>{const s=advance(null,snap(2,"ok"));assert.throws(()=>advance(s,snap(1,"issue")))});

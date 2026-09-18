@@ -2,55 +2,59 @@
   "states": {
     "health": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "latency-asset": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "latency-page": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "litscan-asset": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "litscan-page": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "samples": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "summary": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "venue-aster": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "venue-extended": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "venue-hyperliquid": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "venue-lighter": {
       "failures": 0,
-      "passes": 255
+      "passes": 256
     },
     "venue-nado": {
-      "failures": 0,
-      "passes": 255
+      "failures": 1,
+      "passes": 0
     }
   },
   "incidents": [],
   "history": [
+    {
+      "checked_at": "2026-09-18T13:40:31.563Z",
+      "issues": 1
+    },
     {
       "checked_at": "2026-09-18T13:35:53.409Z",
       "issues": 0
@@ -1073,16 +1077,16 @@
     }
   ],
   "snapshot": {
-    "checkedAt": "2026-09-18T13:35:53.409Z",
+    "checkedAt": "2026-09-18T13:40:31.563Z",
     "checks": [
       {
         "id": "health",
         "site": "latency",
         "name": "Benchmark service health",
         "status": "ok",
-        "detail": "Service reports true; updated 2026-09-18T13:35:52.542062836Z",
+        "detail": "Service reports true; updated 2026-09-18T13:40:30.618098746Z",
         "url": "https://latency.perps.trading/api/bench/health",
-        "ms": 456
+        "ms": 300
       },
       {
         "id": "latency-asset",
@@ -1091,7 +1095,7 @@
         "status": "ok",
         "detail": "Entry point is reachable; execution is not tested",
         "url": "https://latency.perps.trading/assets/index-DLJfIsWu.js",
-        "ms": 66
+        "ms": 84
       },
       {
         "id": "latency-page",
@@ -1100,7 +1104,7 @@
         "status": "ok",
         "detail": "HTTP 200 with expected page title",
         "url": "https://latency.perps.trading/",
-        "ms": 403
+        "ms": 386
       },
       {
         "id": "litscan-asset",
@@ -1109,7 +1113,7 @@
         "status": "ok",
         "detail": "Entry point is reachable; execution is not tested",
         "url": "https://litscan.io/assets/index-DUgSWgNx.js",
-        "ms": 109
+        "ms": 176
       },
       {
         "id": "litscan-page",
@@ -1118,7 +1122,7 @@
         "status": "ok",
         "detail": "HTTP 200 with expected page title",
         "url": "https://litscan.io/",
-        "ms": 511
+        "ms": 1914
       },
       {
         "id": "samples",
@@ -1127,23 +1131,23 @@
         "status": "ok",
         "detail": "1000 returned samples; per-venue checks use the last 15 minutes",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000",
-        "ms": 1218
+        "ms": 1170
       },
       {
         "id": "summary",
         "site": "latency",
         "name": "Summary data & freshness",
         "status": "ok",
-        "detail": "14 summary rows; updated 2026-09-18T13:35:52.815956397Z",
+        "detail": "14 summary rows; updated 2026-09-18T13:40:31.020710278Z",
         "url": "https://latency.perps.trading/api/bench/latest?window=24h",
-        "ms": 1001
+        "ms": 922
       },
       {
         "id": "venue-aster",
         "site": "latency",
         "name": "aster data continuity",
         "status": "ok",
-        "detail": "58s since successful sample; 0/15 recent samples failed",
+        "detail": "35s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -1151,7 +1155,7 @@
         "site": "latency",
         "name": "extended data continuity",
         "status": "ok",
-        "detail": "21s since successful sample; 0/15 recent samples failed",
+        "detail": "57s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -1159,7 +1163,7 @@
         "site": "latency",
         "name": "hyperliquid data continuity",
         "status": "ok",
-        "detail": "3s since successful sample; 0/15 recent samples failed",
+        "detail": "40s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -1167,52 +1171,52 @@
         "site": "latency",
         "name": "lighter data continuity",
         "status": "ok",
-        "detail": "22s since successful sample; 0/15 recent samples failed",
+        "detail": "0s since successful sample; 0/16 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
         "id": "venue-nado",
         "site": "latency",
         "name": "nado data continuity",
-        "status": "ok",
-        "detail": "29s since successful sample; 0/11 recent samples failed",
+        "status": "issue",
+        "detail": "306s since successful sample; 0/6 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       }
     ],
     "venues": [
       {
         "name": "lighter",
-        "count": 15,
+        "count": 16,
         "failed": 0,
-        "age": 22.21,
+        "age": 0,
         "status": "ok"
       },
       {
         "name": "hyperliquid",
         "count": 15,
         "failed": 0,
-        "age": 3.409,
+        "age": 39.969,
         "status": "ok"
       },
       {
         "name": "extended",
         "count": 15,
         "failed": 0,
-        "age": 20.5,
+        "age": 57.238,
         "status": "ok"
       },
       {
         "name": "nado",
-        "count": 11,
+        "count": 6,
         "failed": 0,
-        "age": 28.929,
-        "status": "ok"
+        "age": 305.663,
+        "status": "issue"
       },
       {
         "name": "aster",
         "count": 15,
         "failed": 0,
-        "age": 57.886,
+        "age": 34.559,
         "status": "ok"
       }
     ]

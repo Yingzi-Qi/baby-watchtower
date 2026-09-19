@@ -8,7 +8,7 @@ export function advance(previous,snapshot){
  const bad=c.status==="issue",failures=bad?old.failures+1:0,passes=bad?0:old.passes+1;
  state.states[c.id]={failures,passes};
  const incident=state.incidents.find(i=>i.check_id===c.id&&!i.resolved_at);
- if(!incident&&failures>=2)state.incidents.unshift({id:c.id+"-"+snapshot.checkedAt,check_id:c.id,site:c.site,name:c.name,detail:c.detail,opened_at:snapshot.checkedAt,resolved_at:null,open_sent:0,recovery_sent:0});
+ if(!incident&&failures>=2)state.incidents.unshift({id:c.id+"-"+snapshot.checkedAt,check_id:c.id,site:c.site,name:c.name,severity:c.severity??"error",detail:c.detail,opened_at:snapshot.checkedAt,resolved_at:null,open_sent:0,recovery_sent:0});
  if(incident&&bad)incident.detail=c.detail;
  if(incident&&passes>=2)incident.resolved_at=snapshot.checkedAt;
  }

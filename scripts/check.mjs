@@ -3,12 +3,19 @@ import path from "node:path";
 import {runProbes} from "../lib/probes.mjs";
 import {sendGmail} from "./gmail.mjs";
 import {deliverEmail} from "./email.mjs";
+import {qualityChecks} from "../lib/quality.mjs";
+import {browserChecks} from "../lib/browser-checks.mjs";
 import {advance} from "./state.mjs";
 const statePath=process.env.MONITOR_STATE_PATH??".monitor/state.json";
 const outputPath=process.env.MONITOR_OUTPUT_PATH??"public/data/dashboard.json";
 async function writeJson(p,data){await mkdir(path.dirname(p),{recursive:true});await writeFile(p+".tmp",JSON.stringify(data,null,2)+"\n");await rename(p+".tmp",p)}
 let old;try{old=JSON.parse(await readFile(statePath,"utf8"))}catch(e){if(e.code!=="ENOENT")throw e}
-const state=advance(old,await runProbes());
+const snapshot=await runProbes();
+const quality=qualityChecks(snapshot.telemetry,old?.qualityMemory,Date.parse(snapshot.checkedAt));
+snapshot.checks.push(...quality.checks,...await browserChecks());
+for(const c of snapshot.checks)if(c.id.startsWith('zero-'))c.severity='warning';
+delete snapshot.telemetry;
+const state=advance(old,snapshot);state.qualityMemory=quality.memory;
 const ready=!!(process.env.TELEGRAM_BOT_TOKEN&&process.env.TELEGRAM_CHAT_ID);
 let deliveryError=false;
 if(ready){
@@ -29,6 +36,10 @@ const email=await deliverEmail(state);
 email.testAccepted=!!state.gmailConfirmed;
 email.deliveryError=email.deliveryError||gmailTestError;
 if(email.deliveryError)console.error("Email delivery failed; queued for the next run.");
+const deliveryIssues=[];
+if(email.deliveryError)deliveryIssues.push({id:'email-delivery',site:'monitor',name:'Email delivery failed',status:'issue',detail:'Notification delivery failed; the next check will retry.'});
+if(deliveryError)deliveryIssues.push({id:'telegram-delivery',site:'monitor',name:'Telegram delivery failed',status:'issue',detail:'Notification delivery failed; the next check will retry.'});
+state.snapshot.checks.push(...deliveryIssues);
 await writeJson(statePath,state);
 await writeJson(outputPath,{snapshot:state.snapshot,incidents:state.incidents,history:state.history.slice(0,60),email,telegram:ready,pendingAlerts:ready?state.incidents.filter(i=>!i.open_sent||(i.resolved_at&&!i.recovery_sent)).length:0,deliveryError});
 console.log(JSON.stringify({checkedAt:state.snapshot.checkedAt,checks:state.snapshot.checks.length,issues:state.history[0].issues,openIncidents:state.incidents.filter(i=>!i.resolved_at).length,telegramConfigured:ready}));

@@ -30,10 +30,13 @@ jobs:
           node-version: '22'
       - name: Test monitoring logic
         run: node --test lib/*.test.mjs scripts/*.test.mjs server/*.test.mjs
+      - name: Install checker dependencies
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
       - name: Build updated interface
         if: github.event_name == 'push'
         run: |
-          npm ci --no-audit --no-fund
           npm run build
       - name: Run website checks
         env:

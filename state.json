@@ -2,51 +2,51 @@
   "states": {
     "health": {
       "failures": 0,
-      "passes": 447
+      "passes": 448
     },
     "latency-asset": {
       "failures": 0,
-      "passes": 447
+      "passes": 448
     },
     "latency-page": {
       "failures": 0,
-      "passes": 447
+      "passes": 448
     },
     "litscan-asset": {
       "failures": 0,
-      "passes": 447
+      "passes": 448
     },
     "litscan-page": {
       "failures": 0,
-      "passes": 447
+      "passes": 448
     },
     "samples": {
-      "failures": 0,
-      "passes": 447
+      "failures": 1,
+      "passes": 0
     },
     "summary": {
       "failures": 0,
-      "passes": 447
+      "passes": 448
     },
     "venue-aster": {
       "failures": 0,
-      "passes": 447
+      "passes": 0
     },
     "venue-extended": {
       "failures": 0,
-      "passes": 447
+      "passes": 0
     },
     "venue-hyperliquid": {
       "failures": 0,
-      "passes": 447
+      "passes": 0
     },
     "venue-lighter": {
       "failures": 0,
-      "passes": 447
+      "passes": 0
     },
     "venue-nado": {
       "failures": 0,
-      "passes": 180
+      "passes": 0
     }
   },
   "incidents": [
@@ -63,6 +63,10 @@
     }
   ],
   "history": [
+    {
+      "checked_at": "2026-09-19T05:15:27.506Z",
+      "issues": 1
+    },
     {
       "checked_at": "2026-09-19T05:10:33.166Z",
       "issues": 0
@@ -1853,16 +1857,16 @@
     }
   ],
   "snapshot": {
-    "checkedAt": "2026-09-19T05:10:33.166Z",
+    "checkedAt": "2026-09-19T05:15:27.506Z",
     "checks": [
       {
         "id": "health",
         "site": "latency",
         "name": "Benchmark service health",
         "status": "ok",
-        "detail": "Service reports true; updated 2026-09-19T05:10:32.401964096Z",
+        "detail": "Service reports true; updated 2026-09-19T05:15:27.045459639Z",
         "url": "https://latency.perps.trading/api/bench/health",
-        "ms": 462
+        "ms": 338
       },
       {
         "id": "latency-asset",
@@ -1871,7 +1875,7 @@
         "status": "ok",
         "detail": "Entry point is reachable; execution is not tested",
         "url": "https://latency.perps.trading/assets/index-DLJfIsWu.js",
-        "ms": 102
+        "ms": 57
       },
       {
         "id": "latency-page",
@@ -1880,7 +1884,7 @@
         "status": "ok",
         "detail": "HTTP 200 with expected page title",
         "url": "https://latency.perps.trading/",
-        "ms": 587
+        "ms": 431
       },
       {
         "id": "litscan-asset",
@@ -1889,7 +1893,7 @@
         "status": "ok",
         "detail": "Entry point is reachable; execution is not tested",
         "url": "https://litscan.io/assets/index-DUgSWgNx.js",
-        "ms": 202
+        "ms": 126
       },
       {
         "id": "litscan-page",
@@ -1898,103 +1902,66 @@
         "status": "ok",
         "detail": "HTTP 200 with expected page title",
         "url": "https://litscan.io/",
-        "ms": 1687
+        "ms": 1188
       },
       {
         "id": "samples",
         "site": "latency",
         "name": "Recent sample feed",
-        "status": "ok",
-        "detail": "1000 returned samples; per-venue checks use the last 15 minutes",
-        "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000",
-        "ms": 1119
+        "status": "issue",
+        "detail": "fetch failed",
+        "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
         "id": "summary",
         "site": "latency",
         "name": "Summary data & freshness",
         "status": "ok",
-        "detail": "14 summary rows; updated 2026-09-19T05:10:32.608535235Z",
+        "detail": "14 summary rows; updated 2026-09-19T05:15:27.200574234Z",
         "url": "https://latency.perps.trading/api/bench/latest?window=24h",
-        "ms": 859
+        "ms": 712
       },
       {
         "id": "venue-aster",
         "site": "latency",
         "name": "aster data continuity",
-        "status": "ok",
-        "detail": "31s since successful sample; 0/15 recent samples failed",
+        "status": "unknown",
+        "detail": "Sample feed unavailable; venue state cannot be evaluated",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
         "id": "venue-extended",
         "site": "latency",
         "name": "extended data continuity",
-        "status": "ok",
-        "detail": "0s since successful sample; 0/16 recent samples failed",
+        "status": "unknown",
+        "detail": "Sample feed unavailable; venue state cannot be evaluated",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
         "id": "venue-hyperliquid",
         "site": "latency",
         "name": "hyperliquid data continuity",
-        "status": "ok",
-        "detail": "14s since successful sample; 0/15 recent samples failed",
+        "status": "unknown",
+        "detail": "Sample feed unavailable; venue state cannot be evaluated",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
         "id": "venue-lighter",
         "site": "latency",
         "name": "lighter data continuity",
-        "status": "ok",
-        "detail": "55s since successful sample; 0/15 recent samples failed",
+        "status": "unknown",
+        "detail": "Sample feed unavailable; venue state cannot be evaluated",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
         "id": "venue-nado",
         "site": "latency",
         "name": "nado data continuity",
-        "status": "ok",
-        "detail": "1s since successful sample; 0/15 recent samples failed",
+        "status": "unknown",
+        "detail": "Sample feed unavailable; venue state cannot be evaluated",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       }
     ],
-    "venues": [
-      {
-        "name": "lighter",
-        "count": 15,
-        "failed": 0,
-        "age": 55.498,
-        "status": "ok"
-      },
-      {
-        "name": "hyperliquid",
-        "count": 15,
-        "failed": 0,
-        "age": 13.994,
-        "status": "ok"
-      },
-      {
-        "name": "extended",
-        "count": 16,
-        "failed": 0,
-        "age": 0,
-        "status": "ok"
-      },
-      {
-        "name": "nado",
-        "count": 15,
-        "failed": 0,
-        "age": 0.96,
-        "status": "ok"
-      },
-      {
-        "name": "aster",
-        "count": 15,
-        "failed": 0,
-        "age": 31.304,
-        "status": "ok"
-      }
-    ]
+    "venues": []
   }
 }

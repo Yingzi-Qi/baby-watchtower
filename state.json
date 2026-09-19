@@ -2,59 +2,59 @@
   "states": {
     "health": {
       "failures": 0,
-      "passes": 487
+      "passes": 488
     },
     "latency-asset": {
       "failures": 0,
-      "passes": 487
+      "passes": 488
     },
     "latency-page": {
       "failures": 0,
-      "passes": 487
+      "passes": 488
     },
     "litscan-asset": {
       "failures": 0,
-      "passes": 487
+      "passes": 488
     },
     "litscan-page": {
       "failures": 0,
-      "passes": 487
+      "passes": 488
     },
     "samples": {
       "failures": 0,
-      "passes": 39
+      "passes": 40
     },
     "summary": {
       "failures": 0,
-      "passes": 487
+      "passes": 488
     },
     "venue-aster": {
       "failures": 0,
-      "passes": 39
+      "passes": 40
     },
     "venue-extended": {
       "failures": 0,
-      "passes": 39
+      "passes": 40
     },
     "venue-hyperliquid": {
       "failures": 0,
-      "passes": 39
+      "passes": 40
     },
     "venue-lighter": {
       "failures": 0,
-      "passes": 39
+      "passes": 40
     },
     "venue-nado": {
       "failures": 0,
-      "passes": 39
+      "passes": 40
     },
     "zero-samples": {
-      "failures": 6,
+      "failures": 7,
       "passes": 0
     },
     "zero-summary": {
       "failures": 0,
-      "passes": 10
+      "passes": 11
     }
   },
   "incidents": [
@@ -63,7 +63,7 @@
       "check_id": "zero-samples",
       "site": "latency",
       "name": "Zero latency · recent samples",
-      "detail": "5 zero-latency readings. lighter single/post_only: network-adjusted confirm_ns = 0 ms (measurement ≤ network floor); lighter single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor); nado single/post_only: network-adjusted confirm_ns = 0 ms (measurement ≤ network floor); nado single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor); nado single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor)",
+      "detail": "5 zero-latency readings. nado single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor); lighter single/post_only: network-adjusted confirm_ns = 0 ms (measurement ≤ network floor); lighter single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor); nado single/post_only: network-adjusted confirm_ns = 0 ms (measurement ≤ network floor); nado single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor)",
       "opened_at": "2026-09-19T07:40:32.904Z",
       "resolved_at": null,
       "open_sent": 0,
@@ -82,6 +82,10 @@
     }
   ],
   "history": [
+    {
+      "checked_at": "2026-09-19T08:25:23.090Z",
+      "issues": 1
+    },
     {
       "checked_at": "2026-09-19T08:20:27.466Z",
       "issues": 1
@@ -2032,16 +2036,16 @@
     }
   ],
   "snapshot": {
-    "checkedAt": "2026-09-19T08:20:27.466Z",
+    "checkedAt": "2026-09-19T08:25:23.090Z",
     "checks": [
       {
         "id": "health",
         "site": "latency",
         "name": "Benchmark service health",
         "status": "ok",
-        "detail": "Service reports true; updated 2026-09-19T08:20:26.344792353Z",
+        "detail": "Service reports true; updated 2026-09-19T08:25:22.318942307Z",
         "url": "https://latency.perps.trading/api/bench/health",
-        "ms": 411
+        "ms": 358
       },
       {
         "id": "latency-asset",
@@ -2050,7 +2054,7 @@
         "status": "ok",
         "detail": "Entry point is reachable; execution is not tested",
         "url": "https://latency.perps.trading/assets/index-DLJfIsWu.js",
-        "ms": 44
+        "ms": 42
       },
       {
         "id": "latency-page",
@@ -2059,7 +2063,7 @@
         "status": "ok",
         "detail": "HTTP 200 with expected page title",
         "url": "https://latency.perps.trading/",
-        "ms": 445
+        "ms": 547
       },
       {
         "id": "litscan-asset",
@@ -2068,7 +2072,7 @@
         "status": "ok",
         "detail": "Entry point is reachable; execution is not tested",
         "url": "https://litscan.io/assets/index-DUgSWgNx.js",
-        "ms": 80
+        "ms": 79
       },
       {
         "id": "litscan-page",
@@ -2077,7 +2081,7 @@
         "status": "ok",
         "detail": "HTTP 200 with expected page title",
         "url": "https://litscan.io/",
-        "ms": 769
+        "ms": 809
       },
       {
         "id": "samples",
@@ -2086,23 +2090,23 @@
         "status": "ok",
         "detail": "1000 returned samples; per-venue checks use the last 15 minutes",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000",
-        "ms": 1416
+        "ms": 1030
       },
       {
         "id": "summary",
         "site": "latency",
         "name": "Summary data & freshness",
         "status": "ok",
-        "detail": "14 summary rows; updated 2026-09-19T08:20:26.570785746Z",
+        "detail": "14 summary rows; updated 2026-09-19T08:25:22.612316984Z",
         "url": "https://latency.perps.trading/api/bench/latest?window=24h",
-        "ms": 862
+        "ms": 825
       },
       {
         "id": "venue-aster",
         "site": "latency",
         "name": "aster data continuity",
         "status": "ok",
-        "detail": "25s since successful sample; 0/15 recent samples failed",
+        "detail": "21s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -2110,7 +2114,7 @@
         "site": "latency",
         "name": "extended data continuity",
         "status": "ok",
-        "detail": "54s since successful sample; 0/15 recent samples failed",
+        "detail": "50s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -2118,7 +2122,7 @@
         "site": "latency",
         "name": "hyperliquid data continuity",
         "status": "ok",
-        "detail": "8s since successful sample; 0/15 recent samples failed",
+        "detail": "4s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -2126,7 +2130,7 @@
         "site": "latency",
         "name": "lighter data continuity",
         "status": "ok",
-        "detail": "50s since successful sample; 0/15 recent samples failed",
+        "detail": "46s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -2134,7 +2138,7 @@
         "site": "latency",
         "name": "nado data continuity",
         "status": "ok",
-        "detail": "55s since successful sample; 0/15 recent samples failed",
+        "detail": "51s since successful sample; 0/14 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -2142,7 +2146,7 @@
         "site": "latency",
         "name": "Zero latency · recent samples",
         "status": "issue",
-        "detail": "5 zero-latency readings. lighter single/post_only: network-adjusted confirm_ns = 0 ms (measurement ≤ network floor); lighter single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor); nado single/post_only: network-adjusted confirm_ns = 0 ms (measurement ≤ network floor); nado single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor); nado single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor)",
+        "detail": "5 zero-latency readings. nado single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor); lighter single/post_only: network-adjusted confirm_ns = 0 ms (measurement ≤ network floor); lighter single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor); nado single/post_only: network-adjusted confirm_ns = 0 ms (measurement ≤ network floor); nado single/post_only: network-adjusted cleanup_confirm_ns = 0 ms (measurement ≤ network floor)",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -2159,35 +2163,35 @@
         "name": "lighter",
         "count": 15,
         "failed": 0,
-        "age": 49.601,
+        "age": 45.562,
         "status": "ok"
       },
       {
         "name": "hyperliquid",
         "count": 15,
         "failed": 0,
-        "age": 7.988,
+        "age": 3.937,
         "status": "ok"
       },
       {
         "name": "extended",
         "count": 15,
         "failed": 0,
-        "age": 53.756,
+        "age": 49.721,
         "status": "ok"
       },
       {
         "name": "nado",
-        "count": 15,
+        "count": 14,
         "failed": 0,
-        "age": 54.633,
+        "age": 50.555,
         "status": "ok"
       },
       {
         "name": "aster",
         "count": 15,
         "failed": 0,
-        "age": 25.481,
+        "age": 21.458,
         "status": "ok"
       }
     ]

@@ -2,91 +2,91 @@
   "states": {
     "health": {
       "failures": 0,
-      "passes": 845
+      "passes": 846
     },
     "latency-asset": {
       "failures": 0,
-      "passes": 3090
+      "passes": 3091
     },
     "latency-page": {
       "failures": 0,
-      "passes": 268
+      "passes": 269
     },
     "litscan-asset": {
       "failures": 0,
-      "passes": 1035
+      "passes": 1036
     },
     "litscan-page": {
       "failures": 0,
-      "passes": 1035
+      "passes": 1036
     },
     "samples": {
       "failures": 0,
-      "passes": 1567
+      "passes": 1568
     },
     "summary": {
       "failures": 0,
-      "passes": 2571
+      "passes": 2572
     },
     "venue-aster": {
       "failures": 0,
-      "passes": 2251
+      "passes": 2252
     },
     "venue-extended": {
       "failures": 0,
-      "passes": 2200
+      "passes": 2201
     },
     "venue-hyperliquid": {
       "failures": 0,
-      "passes": 1065
+      "passes": 1066
     },
     "venue-lighter": {
       "failures": 0,
-      "passes": 1465
+      "passes": 1466
     },
     "venue-nado": {
-      "failures": 2251,
+      "failures": 2252,
       "passes": 0
     },
     "zero-samples": {
       "failures": 0,
-      "passes": 7
+      "passes": 8
     },
     "zero-summary": {
       "failures": 0,
-      "passes": 2571
+      "passes": 2572
     },
     "quality-invalid": {
       "failures": 0,
-      "passes": 11318
+      "passes": 11319
     },
     "quality-coverage": {
       "failures": 0,
-      "passes": 2571
+      "passes": 2572
     },
     "quality-frozen": {
       "failures": 0,
-      "passes": 2251
+      "passes": 2252
     },
     "quality-spike": {
-      "failures": 4,
+      "failures": 5,
       "passes": 0
     },
     "quality-statistics": {
       "failures": 0,
-      "passes": 835
+      "passes": 836
     },
     "quality-consistency": {
       "failures": 0,
-      "passes": 2571
+      "passes": 2572
     },
     "litscan-render": {
       "failures": 0,
-      "passes": 3090
+      "passes": 3091
     },
     "latency-render": {
       "failures": 0,
-      "passes": 2584
+      "passes": 2585
     }
   },
   "incidents": [
@@ -96,7 +96,7 @@
       "site": "latency",
       "name": "Latency spike",
       "severity": "warning",
-      "detail": "lighter/single/post_only/1: p95 284.6 ms vs usual 16.0 ms (over 3× and +50 ms); extended/single/post_only/1: p95 231.5 ms vs usual 37.5 ms (over 3× and +50 ms)",
+      "detail": "lighter/single/post_only/1: p95 75.5 ms vs usual 16.2 ms (over 3× and +50 ms); extended/single/post_only/1: p95 1023.0 ms vs usual 38.6 ms (over 3× and +50 ms)",
       "opened_at": "2026-11-27T14:40:58.830Z",
       "resolved_at": null,
       "open_sent": 0,
@@ -2516,6 +2516,10 @@
     }
   ],
   "history": [
+    {
+      "checked_at": "2026-11-27T14:55:44.774Z",
+      "issues": 2
+    },
     {
       "checked_at": "2026-11-27T14:50:58.856Z",
       "issues": 2
@@ -10575,23 +10579,19 @@
     {
       "checked_at": "2026-11-20T15:51:27.137Z",
       "issues": 4
-    },
-    {
-      "checked_at": "2026-11-20T15:46:08.723Z",
-      "issues": 4
     }
   ],
   "snapshot": {
-    "checkedAt": "2026-11-27T14:50:58.856Z",
+    "checkedAt": "2026-11-27T14:55:44.774Z",
     "checks": [
       {
         "id": "health",
         "site": "latency",
         "name": "Benchmark service health",
         "status": "ok",
-        "detail": "Service reports true; updated 2026-11-27T14:50:58.349320713Z",
+        "detail": "Service reports true; updated 2026-11-27T14:55:43.626158804Z",
         "url": "https://latency.perps.trading/api/bench/health",
-        "ms": 300
+        "ms": 292
       },
       {
         "id": "latency-asset",
@@ -10600,7 +10600,7 @@
         "status": "ok",
         "detail": "Entry point is reachable; execution is not tested",
         "url": "https://latency.perps.trading/assets/index-DLJfIsWu.js",
-        "ms": 64
+        "ms": 49
       },
       {
         "id": "latency-page",
@@ -10609,7 +10609,7 @@
         "status": "ok",
         "detail": "HTTP 200 with expected page title",
         "url": "https://latency.perps.trading/",
-        "ms": 529
+        "ms": 770
       },
       {
         "id": "litscan-asset",
@@ -10618,7 +10618,7 @@
         "status": "ok",
         "detail": "Entry point is reachable; execution is not tested",
         "url": "https://litscan.io/assets/index-BFK3vqVi.js",
-        "ms": 159
+        "ms": 142
       },
       {
         "id": "litscan-page",
@@ -10627,7 +10627,7 @@
         "status": "ok",
         "detail": "HTTP 200 with expected page title",
         "url": "https://litscan.io/",
-        "ms": 1057
+        "ms": 1154
       },
       {
         "id": "samples",
@@ -10636,23 +10636,23 @@
         "status": "ok",
         "detail": "1000 returned samples; per-venue checks use the last 15 minutes",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000",
-        "ms": 735
+        "ms": 1331
       },
       {
         "id": "summary",
         "site": "latency",
         "name": "Summary data & freshness",
         "status": "ok",
-        "detail": "10 summary rows; updated 2026-11-27T14:50:58.527600363Z",
+        "detail": "10 summary rows; updated 2026-11-27T14:55:44.057541451Z",
         "url": "https://latency.perps.trading/api/bench/latest?window=24h",
-        "ms": 522
+        "ms": 765
       },
       {
         "id": "venue-aster",
         "site": "latency",
         "name": "aster data continuity",
         "status": "ok",
-        "detail": "56s since successful sample; 0/15 recent samples failed",
+        "detail": "41s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -10660,7 +10660,7 @@
         "site": "latency",
         "name": "extended data continuity",
         "status": "ok",
-        "detail": "11s since successful sample; 0/15 recent samples failed",
+        "detail": "56s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -10668,7 +10668,7 @@
         "site": "latency",
         "name": "hyperliquid data continuity",
         "status": "ok",
-        "detail": "41s since successful sample; 0/15 recent samples failed",
+        "detail": "27s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -10676,7 +10676,7 @@
         "site": "latency",
         "name": "lighter data continuity",
         "status": "ok",
-        "detail": "6s since successful sample; 0/15 recent samples failed",
+        "detail": "51s since successful sample; 0/15 recent samples failed",
         "url": "https://latency.perps.trading/api/bench/latency-series?window=15m&limit=1000"
       },
       {
@@ -10738,7 +10738,7 @@
         "name": "Latency spike",
         "status": "issue",
         "severity": "warning",
-        "detail": "lighter/single/post_only/1: p95 284.6 ms vs usual 16.0 ms (over 3× and +50 ms); extended/single/post_only/1: p95 231.5 ms vs usual 37.5 ms (over 3× and +50 ms)",
+        "detail": "lighter/single/post_only/1: p95 75.5 ms vs usual 16.2 ms (over 3× and +50 ms); extended/single/post_only/1: p95 1023.0 ms vs usual 38.6 ms (over 3× and +50 ms)",
         "url": "https://latency.perps.trading/"
       },
       {
@@ -10781,21 +10781,21 @@
         "name": "lighter",
         "count": 15,
         "failed": 0,
-        "age": 5.507,
+        "age": 50.775,
         "status": "ok"
       },
       {
         "name": "hyperliquid",
         "count": 15,
         "failed": 0,
-        "age": 41.248,
+        "age": 26.674,
         "status": "ok"
       },
       {
         "name": "extended",
         "count": 15,
         "failed": 0,
-        "age": 11.087,
+        "age": 56.315,
         "status": "ok"
       },
       {
@@ -10809,31 +10809,26 @@
         "name": "aster",
         "count": 15,
         "failed": 0,
-        "age": 56.061,
+        "age": 41.275,
         "status": "ok"
       }
     ]
   },
   "qualityMemory": {
     "categories": {
-      "aster/single/post_only/1": 1795791058856,
-      "aster/batch/post_only/5": 1795791058856,
-      "extended/single/post_only/1": 1795791058856,
-      "extended/batch/post_only/5": 1795791058856,
-      "hyperliquid/single/market/1": 1795791058856,
-      "hyperliquid/single/post_only/1": 1795791058856,
-      "lighter/single/market/1": 1795791058856,
-      "lighter/batch/post_only/5": 1795791058856,
-      "lighter/single/post_only/1": 1795791058856,
-      "lighter_free/single/market/1": 1795791058856
+      "aster/single/post_only/1": 1795791344774,
+      "aster/batch/post_only/5": 1795791344774,
+      "extended/single/post_only/1": 1795791344774,
+      "extended/batch/post_only/5": 1795791344774,
+      "hyperliquid/single/market/1": 1795791344774,
+      "hyperliquid/single/post_only/1": 1795791344774,
+      "lighter/single/market/1": 1795791344774,
+      "lighter/batch/post_only/5": 1795791344774,
+      "lighter/single/post_only/1": 1795791344774,
+      "lighter_free/single/market/1": 1795791344774
     },
     "baselines": {
       "hyperliquid/single/post_only/1": [
-        {
-          "at": 1795769753269,
-          "p50": 736.397905,
-          "p95": 974.792838
-        },
         {
           "at": 1795770067526,
           "p50": 736.397905,
@@ -11188,14 +11183,14 @@
           "at": 1795791058856,
           "p50": 982.992588,
           "p95": 1220.813205
+        },
+        {
+          "at": 1795791344774,
+          "p50": 869.020961,
+          "p95": 1177.538297
         }
       ],
       "aster/single/post_only/1": [
-        {
-          "at": 1795769753269,
-          "p50": 93.226371,
-          "p95": 129.353451
-        },
         {
           "at": 1795770067526,
           "p50": 100.956843,
@@ -11550,14 +11545,14 @@
           "at": 1795791058856,
           "p50": 145.13892,
           "p95": 357.505082
+        },
+        {
+          "at": 1795791344774,
+          "p50": 125.244438,
+          "p95": 194.120262
         }
       ],
       "lighter/single/post_only/1": [
-        {
-          "at": 1795769753269,
-          "p50": 8.184548,
-          "p95": 12.033849
-        },
         {
           "at": 1795770067526,
           "p50": 8.748989,
@@ -11912,14 +11907,14 @@
           "at": 1795791058856,
           "p50": 14.926332,
           "p95": 284.602348
+        },
+        {
+          "at": 1795791344774,
+          "p50": 21.820385,
+          "p95": 75.519032
         }
       ],
       "extended/single/post_only/1": [
-        {
-          "at": 1795769753269,
-          "p50": 16.06735,
-          "p95": 21.168452
-        },
         {
           "at": 1795770067526,
           "p50": 15.633726,
@@ -12274,6 +12269,11 @@
           "at": 1795791058856,
           "p50": 24.587078,
           "p95": 231.515328
+        },
+        {
+          "at": 1795791344774,
+          "p50": 33.16078,
+          "p95": 1022.986294
         }
       ],
       "nado/single/post_only/1": [
